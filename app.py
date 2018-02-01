@@ -8,8 +8,7 @@ from apscheduler.schedulers.blocking import BlockingScheduler
 
 def main():
     scheduler = BlockingScheduler()
-    # 或者interval
-    scheduler.add_job(crawler, 'cron', day_of_week='1-5', hour='6')
+    scheduler.add_job(crawler, 'interval', hour=1)
     scheduler.start()
 
 def crawler():
@@ -25,7 +24,7 @@ def crawler():
             dom = etree.HTML(tmp.content)
             main = dom.xpath("//div[@class='main']")[0]
             msg = etree.tostring(main, pretty_print=True)
-            main(msg)
+            mail(msg)
 
 def mail(content):
     mail_username = 'xxx@gmail.com'
